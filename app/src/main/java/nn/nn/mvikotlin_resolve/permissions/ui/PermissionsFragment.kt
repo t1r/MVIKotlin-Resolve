@@ -28,7 +28,7 @@ class PermissionsFragment : Fragment(R.layout.fragment_permissions) {
     }
 
     fun askLocationPermissions() {
-        Timber.d("DEBDEB showRationaleDeviceCurrentLocation")
+        Timber.d("DEBDEB askLocationPermissions")
     }
 
     private fun initUi() {

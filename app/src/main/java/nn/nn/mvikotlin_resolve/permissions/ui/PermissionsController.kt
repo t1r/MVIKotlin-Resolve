@@ -51,7 +51,7 @@ class PermissionsController constructor(
                 //TOOD back
             }
             is PermissionsEvent.AskLocationPermissions -> {
-                Timber.d("DEBDEB PermissionsEvent.AskLocationPermissions")
+                Timber.d("DEBDEB consume AskLocationPermissions label")
                 fragment.askLocationPermissions()
             }
         }
