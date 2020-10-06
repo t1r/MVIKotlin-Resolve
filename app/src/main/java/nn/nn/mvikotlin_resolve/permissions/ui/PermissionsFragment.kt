@@ -24,16 +24,16 @@ class PermissionsFragment : Fragment(R.layout.fragment_permissions) {
             lifecycle = lifecycle.asMviLifecycle(),
             viewLifecycle = viewLifecycleOwner.lifecycle.asMviLifecycle()
         )
-        initUi()
+        initUi(view)
     }
 
     fun askLocationPermissions() {
         Timber.d("DEBDEB askLocationPermissions")
     }
 
-    private fun initUi() {
+    private fun initUi(view: View) {
 //        mapView?.getMapAsync(getOnMapReadyCallback())
-        onOnMapReady()
+        view.post { onOnMapReady() } //labels are lost without post
     }
 
     private fun onOnMapReady() {

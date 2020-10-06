@@ -2,6 +2,7 @@ package nn.nn.mvikotlin_resolve.permissions.ui
 
 import com.arkivanov.mvikotlin.core.binder.BinderLifecycleMode
 import com.arkivanov.mvikotlin.core.lifecycle.Lifecycle
+import com.arkivanov.mvikotlin.core.lifecycle.asMviLifecycle
 import com.arkivanov.mvikotlin.core.lifecycle.doOnDestroy
 import com.arkivanov.mvikotlin.core.view.MviView
 import com.arkivanov.mvikotlin.extensions.coroutines.bind
@@ -20,6 +21,12 @@ class PermissionsController constructor(
     private val fragment: PermissionsFragment
 ) {
 
+    init {
+        bind(fragment.lifecycle.asMviLifecycle(), BinderLifecycleMode.CREATE_DESTROY) {
+            store.labels.mapNotNull(labelToEvent) bindTo { consumeEvent(it) }
+        }
+    }
+
     fun onViewCreated(
         view: MviView<PermissionsView.ViewModel, PermissionsView.ViewEvent>,
         lifecycle: Lifecycle,
@@ -31,7 +38,6 @@ class PermissionsController constructor(
 
         bind(viewLifecycle, BinderLifecycleMode.CREATE_DESTROY) {
             view.events.mapNotNull(viewEventToIntent) bindTo store
-            store.labels.mapNotNull(labelToEvent) bindTo { consumeEvent(it) }
         }
 
         lifecycle.doOnDestroy(store::dispose)
